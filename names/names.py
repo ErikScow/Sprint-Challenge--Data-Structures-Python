@@ -13,10 +13,56 @@ f.close()
 duplicates = []  # Return the list of duplicates in this data structure
 
 # Replace the nested for loops below with your improvements
-for name_1 in names_1:
-    for name_2 in names_2:
-        if name_1 == name_2:
-            duplicates.append(name_1)
+class BSTNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def insert(self, value):
+        print(value)
+        #checks if value alphabetically occurs before self.value
+        lower = min(value.lower(), self.value.lower())
+        print('lower',lower)
+        if value.lower() == lower:
+            if self.left is None:
+                self.left = BSTNode(value)
+            else:
+                self.left.insert(value)
+        else:
+            if self.right is None:
+                self.right = BSTNode(value)
+            else:
+                self.right.insert(value)
+    
+    def contains(self, target):
+        if target is self.value:
+            return True
+        elif target is not min(target.lower(), self.value.lower()):
+            if self.right is None:
+                return False
+            else:
+                return self.right.contains(target)
+        else:
+            if self.left is None:
+                return False
+            else:
+                return self.left.contains(target)
+
+names1 = BSTNode(names_2[0])
+names2 = BSTNode(names_2[0])
+
+for name in names_2:
+   names2.insert(name)
+
+#for name_1 in names_1:
+#    names1.insert(name_1)
+
+
+""" for name_1 in names_1:
+    if names2.contains(name_1) is True:
+        duplicates.append(name_1) """
+
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
