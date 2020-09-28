@@ -24,6 +24,11 @@ class LinkedList:
 
         self.head = node
 
+    def remove_from_head(self):
+        value = self.head.get_value()
+        self.head = self.head.get_next()
+        return value
+
     def contains(self, value):
         if not self.head:
             return False
@@ -39,4 +44,14 @@ class LinkedList:
         return False
 
     def reverse_list(self, node, prev):
-        pass
+        values = []
+        current_node = self.head
+        while self.head != None:
+            current_node = current_node.get_next()
+            node = self.remove_from_head()
+            values.append(node)
+        while len(values) > 0:
+            node = values.pop(0)
+            self.add_to_head(node)
+
+        
